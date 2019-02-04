@@ -6,4 +6,4 @@ Study ENA accession: PRJEB28224
 
 PacBio Read accession: ERR2736893; ERR2736894
 
-Final assembly accession: ERZ690503
+WGS sequence set: UZAC01000000
