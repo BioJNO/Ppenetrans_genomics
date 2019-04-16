@@ -1,4 +1,4 @@
-cd /home/jo42324/scratch/pas-genomics/finalassembly/fasta/tbblasted/
+cd /home/jo42324/scratch/pas-genomics/finalassembly/fasta/
 
 for f in *.fasta
 do
