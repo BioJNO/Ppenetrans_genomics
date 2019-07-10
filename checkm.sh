@@ -1,28 +1,27 @@
-# Given folder of genomes as contigs with extension .fna
+# Analyse all P. penetrans assemblies with bacteria, firmicute, and bacilli 
+# marker sets 
+checkm analyze -x fasta -t 8 ../bacteria.ms ./all_assemblies/ ./checkm_bact/ 
+wait
 
-# Analyse completeness and contamination against bacterial marker HMMs
-checkm analyze -x fna -t 8 \
-../bacteria.ms ./fna ./checkm_bact/
+checkm analyze -x fasta -t 8 ../firmicutes.ms ./all_assemblies/ ./checkm_firm/ 
+wait
 
-# Firmicute HMMs
-checkm analyze -x fna -t 8 \
-../firmicutes.ms ./pilon ./checkm_firm/
+checkm analyze -x fasta -t 8 ../bacilli.ms ./all_assemblies/ ./checkm_bacilli/ 
+wait
 
-# Bacilli HMMs
-checkm analyze -x fna -t 8 \
-../bacilli.ms ./pilon/ ./checkm_bacilli/ 
+# Generate a table for each marker set with extended statistics
+checkm qa -o 2 --tab_table -f bact-analyse-extended.txt ../bacteria.ms \
+./checkm_bact/
+wait
 
-# Generate stats for each marker set
-checkm qa -o 9 -f bact-markers.fasta ../bacteria.ms ./checkm_bact/
-checkm qa -o 9 -f firm-markers.fasta ../firmicutes.ms ./checkm_firm/
-checkm qa -o 9 -f bacilli-markers.fasta ../bacilli.ms ./checkm_bacilli/
+checkm qa -o 2 --tab_table -f firm-analyse-extended-pilon.txt ../firmicutes.ms \
+./checkm_firm/
+wait
 
-# Generate qa plot of bacterial marker stats 
-# N.B bin_qa_plot slightly modified for colour blind friendly figures
-checkm bin_qa_plot -x fna --image_type svg \
-./checkm_bact/ \
-./fna \
+checkm qa -o 2 --tab_table -f bacilli-analyse-exended-pilon.txt ../bacilli.ms \
+./checkm_bacilli/
+wait 
+
+# Generate a histogram of completeness, heterogeneity, and contamination
+checkm bin_qa_plot -x fasta --image_type svg ./checkm_bact/ ./all_assemblies/ \
 ./checkm_bact/plots
-
-
-
