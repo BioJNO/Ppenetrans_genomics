@@ -1,8 +1,6 @@
 #!/bin/bash
 #set -e
 
-cd /home/jo42324/scratch/pas-genomics/finalassembly/genepredictions/
-
 for f in *.faa
 do
 	diamond blastp --threads 16 \

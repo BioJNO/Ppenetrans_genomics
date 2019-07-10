@@ -1,19 +1,28 @@
-cd /home/jo42324/rothamsted-genomic-assembly/rothamsted-assembly/MIRA_assemblies/2ndMiraAssemby
-
-mkdir repblobs/
-
-# Create a BlobDB
-blobtools create -i black1-accurate-v13.fasta \
--c black1-accurate-v13.bam.cov \
--t Black1.MIRA.firmicute.assembly.v13.vs.nt.25cul1.1e25.megablast.out \
--o repblobs/13thMIRA_assembly
+# Get taxonomic data for contigs------------------------------- 
+# BLAST
+export BLASTDB=/mnt/shared/cluster/databases/ncbi/extracted
+blastn \
+ -query contigs.fasta \
+ -db nt \
+ -outfmt '6 qseqid staxids bitscore' \
+ -max_target_seqs 10 \
+ -max_hsps 1 \
+ -evalue 1e-25 \
+ -num_threads 8 \
+ -out unmapped.illuminapairassembly.blastn.txt
 wait 
 
-cd repblobs/
+# Create a BlobDB-----------------------------------------------
+blobtools create \
+-y spades \
+-i contigs.fasta \
+-t unmapped.illuminapairassembly.blastn.txt \
+-o ./unmapped.illumina.blobdb
+wait
 
-# Generate a tabular view
-blobtools view -i 13thMIRA_assembly.blobDB.json -r genus
+# Generate a tabular view----------------------------------------
+blobtools view -i ././unmapped.illumina.blobdb.blobDB.json -r genus
 
 wait
-# Generate a blobplot
-blobtools blobplot -i 13thMIRA_assembly.blobDB.json -r genus --format svg 
+# Generate a blobplot--------------------------------------------
+blobtools blobplot -i ././unmapped.illumina.blobdb.blobDB.json -r genus --format svg 

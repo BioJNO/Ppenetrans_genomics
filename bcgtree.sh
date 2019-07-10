@@ -1,5 +1,3 @@
-cd /home/jo42324/scratch/pas-genomics/finalassembly/phylogeny/genomes/predicted_proteins
-
 perl /home/jo42324/Download/bcgTree/bin/bcgTree.pl \
 --proteome Alicyclobacillus.acidocaldarius=AACI.Alicyclobacillus.acidocaldarius.faa \
 --proteome Anaerobacillus.arseniciselenatis=AARS.Anaerobacillus.arseniciselenatis.faa \
